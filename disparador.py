@@ -105,7 +105,7 @@ def enviar_lote():
     print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] Iniciando lote: enviando {len(lote)} e-mails (posição {indice_atual} até {proximo_indice - 1} de {len(emails)} total)...", flush=True)
 
     try:
-        servidor = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        servidor = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30)
         servidor.starttls()
         servidor.login(EMAIL_REMETENTE, SENHA_APLICATIVO)
 
