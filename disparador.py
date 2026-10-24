@@ -47,7 +47,7 @@ CORPO_HTML = """
 
         <p>Buscamos oportunidades estratégicas para ajudar empresas a fortalecer sua presença na internet por meio de backlinks relevantes.</p>
         
-        <p>Cada site tem suas próprias características e necessidades. Por isso, entender o seu negócio é o primeiro passo para identificar as oportunidades mais adequadas.</p>
+        <p>Cada site has suas próprias características e necessidades. Por isso, entender o seu negócio é o primeiro passo para identificar as oportunidades mais adequadas.</p>
 
         <p><strong>Quer saber como os backlinks podem contribuir para a presença digital da sua empresa?</strong></p>
         
@@ -102,7 +102,7 @@ def enviar_lote():
     lote = emails[indice_atual : indice_atual + TAMANHO_LOTE]
     proximo_indice = indice_atual + len(lote)
 
-    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] Iniciando lote: enviando {len(lote)} e-mails (posição {indice_atual} até {proximo_indice - 1} de {len(emails)} total)...")
+    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] Iniciando lote: enviando {len(lote)} e-mails (posição {indice_atual} até {proximo_indice - 1} de {len(emails)} total)...", flush=True)
 
     try:
         servidor = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
@@ -119,29 +119,4 @@ def enviar_lote():
                 # Anexa o conteúdo formatado em HTML
                 msg.attach(MIMEText(CORPO_HTML, 'html', 'utf-8'))
 
-                servidor.sendmail(EMAIL_REMETENTE, destinatario, msg.as_string())
-                print(f"({i}/{len(lote)}) E-mail enviado com sucesso para: {destinatario}")
-                
-                # Pausa de 15 segundos entre os e-mails para proteger sua conta contra bloqueios
-                time.sleep(15)
-            except Exception as e:
-                print(f"Erro ao enviar para {destinatario}: {e}")
-
-        servidor.quit()
-        
-        # Salva onde parou para o próximo ciclo
-        with open("progresso.txt", "w") as f:
-            f.write(str(proximo_indice))
-            
-        print(f"Lote finalizado com sucesso! Próximo lote começará daqui a 4 horas.")
-
-    except Exception as e:
-        print(f"Erro na conexão com o servidor de e-mail: {e}")
-
-# --- LOOP AUTOMÁTICO A CADA 4 HORAS ---
-if __name__ == "__main__":
-    print("Robô disparador por lotes iniciado! Rodará a cada 4 horas (180 e-mails por vez).")
-    while True:
-        enviar_lote()
-        print(f"Aguardando 4 horas para o próximo lote...\n")
-        time.sleep(INTERVALO_SEGUNDOS)
+                servidor.sendmail(EMAIL_REMETENTE
