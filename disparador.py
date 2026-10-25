@@ -119,4 +119,21 @@ def enviar_lote():
                 # Anexa o conteúdo formatado em HTML
                 msg.attach(MIMEText(CORPO_HTML, 'html', 'utf-8'))
 
-                servidor.sendmail(EMAIL_REMETENTE
+                # CORREÇÃO APLICADA AQUI:
+                servidor.sendmail(EMAIL_REMETENTE, destinatario, msg.as_string())
+                print(f"[{i}/{len(lote)}] E-mail enviado com sucesso para: {destinatario}")
+            except Exception as e:
+                print(f"Erro ao enviar para {destinatario}: {e}")
+
+        servidor.quit()
+
+        # Salva o progresso atualizado
+        with open("progresso.txt", "w") as f:
+            f.write(str(proximo_indice))
+        print(f"Lote finalizado com sucesso. Próximo índice salvo: {proximo_indice}")
+
+    except Exception as e:
+        print(f"Erro de conexão com o servidor SMTP: {e}")
+
+if __name__ == "__main__":
+    enviar_lote()
