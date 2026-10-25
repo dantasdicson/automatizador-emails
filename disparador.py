@@ -2,7 +2,7 @@ import time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
+print("=== TESTE DA VERSAO NOVA CARREGADA COM SUCESSO ===", flush=True)
 # --- CONFIGURAÇÕES DO GMAIL ---
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
