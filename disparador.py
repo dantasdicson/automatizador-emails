@@ -9,7 +9,7 @@ SMTP_PORT = 587
 EMAIL_REMETENTE = "dicsondantas@gmail.com"      # O seu e-mail
 SENHA_APLICATIVO = "voge rmjz fjwk ilam"  # Senha de App configurada
 
-# --- TÍTULO E CORPO DA MENSAGEM (TEMA MODERNO E SOFISTICADO COM REDES SOCIAIS) ---
+# --- TÍTULO E CORPO DA MENSAGEM (COM A SUA IMAGEM CORRETA E REDES SOCIAIS) ---
 ASSUNTO = "NOVIDADE !!! SEU SITE MERECE SER ENCONTRADO POR MAIS PESSOAS"
 
 CORPO_HTML = """
@@ -21,10 +21,10 @@ CORPO_HTML = """
 <body style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 0; color: #2d3748; line-height: 1.6;">
     <div style="max-width: 600px; margin: 30px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
         
-        <!-- Cabeçalho / Imagem com Link para o WhatsApp -->
-        <div style="text-align: center; background: #1a202c; padding: 25px 20px;">
+        <!-- Cabeçalho / Sua Imagem Personalizada (imagem.jpg) com Link para o WhatsApp -->
+        <div style="text-align: center; background: #ffcc00; padding: 20px;">
             <a href="https://api.whatsapp.com/send?phone=5584998394928&text=Olá!+Gostaria+de+informações+sobre+a+estratégia+de+backlinks+para+melhorar+a+visibilidade+do+meu+site+no+Google." target="_blank">
-                <img src="https://ci3.googleusercontent.com/meips/ADKq_NbmKB2kiadhKdAykNAgBSrAQTD4gk5iYjZ4oE5d2JyvASG-_JblvHTH1BqCEGN3PwNw1mPHwdcOEDePJ0A53VGBZSCGeUrxd1Mv_6sgkB6l7jZiz8jZeIROVNKsaFCDdyykPjsTzbhnwDm4_y9cgqHqd-72RcJ3gvsn7KmY8w=s0-d-e1-ft#https://55by4ianysmo62fl6qpby79v6rphgl_h7n8onw6evuy.canva-cdn.email/57906d916adb14b149c68b357a184048.png" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+                <img src="https://raw.githubusercontent.com/dantasdickson/automatizador-emails/main/imagem.jpg" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
             </a>
         </div>
 
@@ -76,7 +76,7 @@ CORPO_HTML = """
 """
 
 def enviar_teste():
-    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] A iniciar teste com o template sofisticado...", flush=True)
+    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] A iniciar teste com a imagem correta...", flush=True)
 
     try:
         print("A conectar ao servidor SMTP do Gmail...", flush=True)
@@ -86,7 +86,7 @@ def enviar_teste():
         print("A fazer login com a senha de aplicativo...", flush=True)
         servidor.login(EMAIL_REMETENTE, SENHA_APLICATIVO)
 
-        print(f"A preparar e-mail HTML sofisticado para: {EMAIL_REMETENTE}", flush=True)
+        print(f"A preparar e-mail HTML para: {EMAIL_REMETENTE}", flush=True)
         msg = MIMEMultipart()
         msg['From'] = EMAIL_REMETENTE
         msg['To'] = EMAIL_REMETENTE
@@ -94,11 +94,11 @@ def enviar_teste():
         
         msg.attach(MIMEText(CORPO_HTML, 'html', 'utf-8'))
 
-        print("A enviar o e-mail...", flush=True)
+        print("A enviar o e-mail de teste...", flush=True)
         servidor.sendmail(EMAIL_REMETENTE, EMAIL_REMETENTE, msg.as_string())
         
         servidor.quit()
-        print(f"E-MAIL SOFISTICADO ENVIADO COM SUCESSO para {EMAIL_REMETENTE}!", flush=True)
+        print(f"E-MAIL ENVIADO COM SUCESSO para {EMAIL_REMETENTE}!", flush=True)
 
     except Exception as e:
         print(f"ERRO NO TESTE: {e}", flush=True)
