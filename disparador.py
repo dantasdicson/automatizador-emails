@@ -25,7 +25,7 @@ CORPO_HTML = """
         <!-- HEADER / IMAGEM HOSPEDADA NO GITHUB -->
         <div style="background-color: #111827; text-align: center;">
             <a href="https://api.whatsapp.com/send?phone=5584998394928&text=Olá!+Gostaria+de+informações+sobre+a+estratégia+de+backlinks+para+melhorar+a+visibilidade+do+meu+site+no+Google." target="_blank">
-                <img src="COLE_O_LINK_RAW_DO_GITHUB_AQUI" alt="Backlinks - Conecte seu site a novas oportunidades" style="width: 100%; height: auto; display: block; border-bottom: 3px solid #f59e0b;">
+                <img src="https://github.com/dantasdicson/automatizador-emails/blob/main/imagem.jpg?raw=true" alt="Backlinks - Conecte seu site a novas oportunidades" style="width: 100%; height: auto; display: block; border-bottom: 3px solid #f59e0b;">
             </a>
         </div>
 
