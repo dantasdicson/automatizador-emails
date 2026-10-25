@@ -2,11 +2,11 @@ import time
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-print("=== TESTE DA VERSAO NOVA CARREGADA COM SUCESSO ===", flush=True)
+
 # --- CONFIGURAÇÕES DO GMAIL ---
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-EMAIL_REMETENTE = "dicsondantas@gmail.com"      # O teu e-mail
+EMAIL_REMETENTE = "dicsondantas@gmail.com"      # O seu e-mail
 SENHA_APLICATIVO = "voge rmjz fjwk ilam"  # Senha de App configurada
 
 # --- TÍTULO E CORPO DA MENSAGEM (TEMA MODERNO E SOFISTICADO COM REDES SOCIAIS) ---
@@ -76,7 +76,7 @@ CORPO_HTML = """
 """
 
 def enviar_teste():
-    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] A iniciar teste com o tema moderno e redes sociais...", flush=True)
+    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] A iniciar teste com o template sofisticado...", flush=True)
 
     try:
         print("A conectar ao servidor SMTP do Gmail...", flush=True)
@@ -94,11 +94,11 @@ def enviar_teste():
         
         msg.attach(MIMEText(CORPO_HTML, 'html', 'utf-8'))
 
-        print("A enviar o e-mail de teste...", flush=True)
+        print("A enviar o e-mail...", flush=True)
         servidor.sendmail(EMAIL_REMETENTE, EMAIL_REMETENTE, msg.as_string())
         
         servidor.quit()
-        print(f"E-MAIL MODERNO ENVIADO COM SUCESSO para {EMAIL_REMETENTE}!", flush=True)
+        print(f"E-MAIL SOFISTICADO ENVIADO COM SUCESSO para {EMAIL_REMETENTE}!", flush=True)
 
     except Exception as e:
         print(f"ERRO NO TESTE: {e}", flush=True)
