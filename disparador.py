@@ -9,7 +9,7 @@ SMTP_PORT = 587
 EMAIL_REMETENTE = "dicsondantas@gmail.com"      # O seu e-mail
 SENHA_APLICATIVO = "voge rmjz fjwk ilam"  # Senha de App configurada
 
-# --- TÍTULO E CORPO DA MENSAGEM (COM A SUA IMAGEM CORRETA E REDES SOCIAIS) ---
+# --- TÍTULO E CORPO DA MENSAGEM (TEMPLATE MODERNO E REDES SOCIAIS) ---
 ASSUNTO = "NOVIDADE !!! SEU SITE MERECE SER ENCONTRADO POR MAIS PESSOAS"
 
 CORPO_HTML = """
@@ -21,8 +21,9 @@ CORPO_HTML = """
 <body style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 0; color: #2d3748; line-height: 1.6;">
     <div style="max-width: 600px; margin: 30px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
         
-        <!-- Cabeçalho / Sua Imagem Personalizada (imagem.jpg) com Link para o WhatsApp -->
+        <!-- Cabeçalho / Sua Imagem Personalizada com Link para o WhatsApp -->
         <div style="text-align: center; background: #ffcc00; padding: 20px;">
+            <a href="https://api.whatsapp.com/send?phone=5584998394928&text=Olá!+Gostaria+de+informações+sobre+a+estratégia+de+backlinks+para+melhorar+a+visibilidade+do+meu+site+no+Google." target="_blank">
                 <img src="https://i.imgur.com/vjqM6Mv.png" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
             </a>
         </div>
@@ -56,7 +57,7 @@ CORPO_HTML = """
             </div>
         </div>
 
-        <!-- Rodapé Moderno com Ponteiros para as Redes Sociais -->
+        <!-- Rodapé Moderno com Redes Sociais -->
         <div style="background: #edf2f7; padding: 25px 20px; text-align: center; border-top: 1px solid #e2e8f0;">
             <p style="margin: 0 0 15px 0; font-size: 13px; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Acompanhe nossas redes oficiais</p>
             
@@ -74,33 +75,80 @@ CORPO_HTML = """
 </html>
 """
 
-def enviar_teste():
-    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] A iniciar teste com a imagem correta...", flush=True)
+# --- CONFIGURAÇÕES DE LOTE E INTERVALO ---
+TAMANHO_LOTE = 180
+
+def carregar_emails():
+    """Lê todos os e-mails do arquivo de texto de forma blindada"""
+    try:
+        with open("emails.txt", "r", encoding="utf-8-sig") as f:
+            emails = []
+            for linha in f:
+                email_limpo = linha.replace("\xa0", "").strip()
+                if email_limpo and "@" in email_limpo:
+                    emails.append(email_limpo)
+        return list(set(emails)) # Remove duplicatas por segurança
+    except FileNotFoundError:
+        print("Arquivo emails.txt não encontrado na pasta.")
+        return []
+
+def enviar_lote():
+    emails = carregar_emails()
+    if not emails:
+        print("Nenhum e-mail para enviar.")
+        return
+
+    # Lê o progresso atual para saber de qual e-mail continuar
+    indice_atual = 0
+    try:
+        with open("progresso.txt", "r") as f:
+            indice_atual = int(f.read().strip())
+    except (FileNotFoundError, ValueError):
+        indice_atual = 0
+
+    if indice_atual >= len(emails):
+        print("A lista inteira de e-mails foi percorrida. Reiniciando o ciclo do começo.")
+        indice_atual = 0
+
+    # Pega o próximo lote de até 180 e-mails
+    lote = emails[indice_atual : indice_atual + TAMANHO_LOTE]
+    proximo_indice = indice_atual + len(lote)
+
+    print(f"[{time.strftime('%d/%m/%Y %H:%M:%S')}] Iniciando lote: enviando {len(lote)} e-mails (posição {indice_atual} até {proximo_indice - 1} de {len(emails)} total)...", flush=True)
 
     try:
-        print("A conectar ao servidor SMTP do Gmail...", flush=True)
         servidor = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30)
         servidor.starttls()
-        
-        print("A fazer login com a senha de aplicativo...", flush=True)
         servidor.login(EMAIL_REMETENTE, SENHA_APLICATIVO)
 
-        print(f"A preparar e-mail HTML para: {EMAIL_REMETENTE}", flush=True)
-        msg = MIMEMultipart()
-        msg['From'] = EMAIL_REMETENTE
-        msg['To'] = EMAIL_REMETENTE
-        msg['Subject'] = ASSUNTO
-        
-        msg.attach(MIMEText(CORPO_HTML, 'html', 'utf-8'))
+        for i, destinatario in enumerate(lote, 1):
+            try:
+                msg = MIMEMultipart()
+                msg['From'] = EMAIL_REMETENTE
+                msg['To'] = destinatario
+                msg['Subject'] = ASSUNTO
+                
+                # Anexa o conteúdo formatado em HTML
+                msg.attach(MIMEText(CORPO_HTML, 'html', 'utf-8'))
 
-        print("A enviar o e-mail de teste...", flush=True)
-        servidor.sendmail(EMAIL_REMETENTE, EMAIL_REMETENTE, msg.as_string())
-        
+                servidor.sendmail(EMAIL_REMETENTE, destinatario, msg.as_string())
+                print(f"({i}/{len(lote)}) E-mail enviado com sucesso para: {destinatario}", flush=True)
+                
+                # Pausa de 15 segundos entre os e-mails para proteger sua conta contra bloqueios
+                time.sleep(15)
+            except Exception as e:
+                print(f"Erro ao enviar para {destinatario}: {e}", flush=True)
+
         servidor.quit()
-        print(f"E-MAIL ENVIADO COM SUCESSO para {EMAIL_REMETENTE}!", flush=True)
+        
+        # Salva onde parou para o próximo ciclo
+        with open("progresso.txt", "w") as f:
+            f.write(str(proximo_indice))
+            
+        print(f"Lote finalizado com sucesso! Próximo lote começará no próximo ciclo.", flush=True)
 
     except Exception as e:
-        print(f"ERRO NO TESTE: {e}", flush=True)
+        print(f"Erro na conexão com o servidor de e-mail: {e}", flush=True)
 
 if __name__ == "__main__":
-    enviar_teste()
+    enviar_lote()
