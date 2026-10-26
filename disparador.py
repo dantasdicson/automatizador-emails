@@ -23,7 +23,7 @@ CORPO_HTML = """
         
         <!-- Cabeçalho / Sua Imagem Personalizada (imagem.jpg) com Link para o WhatsApp -->
         <div style="text-align: center; background: #ffcc00; padding: 20px;">
-                <img src="https://imgur.com/a/F9uEWPk" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+                <img src="https://i.imgur.com/vjqM6Mv.png" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
             </a>
         </div>
 
