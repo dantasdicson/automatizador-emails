@@ -23,8 +23,7 @@ CORPO_HTML = """
         
         <!-- Cabeçalho / Sua Imagem Personalizada (imagem.jpg) com Link para o WhatsApp -->
         <div style="text-align: center; background: #ffcc00; padding: 20px;">
-            <a href="https://api.whatsapp.com/send?phone=5584998394928&text=Olá!+Gostaria+de+informações+sobre+a+estratégia+de+backlinks+para+melhorar+a+visibilidade+do+meu+site+no+Google." target="_blank">
-                <img src="https://raw.githubusercontent.com/dantasdickson/automatizador-emails/main/imagem.jpg" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
+                <img src="https://imgur.com/a/F9uEWPk" alt="Backlinks SEO" style="max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto;">
             </a>
         </div>
 
